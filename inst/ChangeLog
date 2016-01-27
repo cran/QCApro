@@ -1,0 +1,47 @@
+VERSION 1.0-0
+  
+  o launch version: main changes to predecessor package 'QCA', version 1.1-4:
+    
+    - RENAMED: function 'allExpressions' to 'implicantMatrix', 'createMatrix' to 
+               'mintermMatrix', 'deMorgan' to 'DeMorgan', 'eqmcc' to 'eQMC'
+    - RENAMED: argument 'conditions' in functions 'eQMC', 'truthTable', and 
+               'superSubset' renamed to 'exo.facs' (exogenous factors)
+    - RENAMED: argument 'include' in function 'eQMC' to 'sol.type' (solution type)
+    - RENAMED: argument 'explain' in function 'eQMC' to 'minimize'
+    - RENAMED: argument 'prod.split' in functions 'DeMorgan' and 'factorize' to
+               'and.split'
+    - CHANGED: functions 'demoChart', 'findSubsets', 'findSupersets', 'getRow', 
+               and 'solveChart' removed from user level (internalized)
+    - CHANGED: error messages corrected and extended in verification functions 
+               'verify.data', 'verify.tt', 'verify.qca', 'verify.dir.exp', 
+               'verify.mqca', and 'verify.inf.test'
+    - CHANGED: all documentation files revised and updated
+    - CHANGED: default value for argument 'min.dis' in function 'eQMC' set to 
+               'TRUE'
+    - CHANGED: default value for argument 'sol.type' in function 'eQMC' set to 
+               'ps' (parsimonious solution)
+    - CHANGED: truth table not printed any more when dataset is passed directly 
+               to function 'eQMC' and argument 'details' is set to 'TRUE' 
+    - FIXED  : bug in functions 'truthTable' and 'eqmcc' (new 'eQMC') produced
+               incorrect truth table for outcomes from multivalent factors when
+               these outcomes included levels with two or more digits
+    - FIXED  : bug in function 'eqmcc' ('eQMC') in relation to intermediate solutions
+    - FIXED  : use of argument 'inf.test' in function 'truthTable' caused error 
+               when argument 'complete = TRUE'
+    - FIXED  : argument 'data' in function 'eqmcc' (new 'eQMC') caused error when 
+               'data' was of class 'matrix' instead of 'data.frame' or 'tt'
+    - FIXED  : error messages for argument 'data' with respect to missing values 
+               restricted to data under factor frame (argument 'exo.facs' plus 
+               factor of argument 'outcome') instead of all data under argument 
+               'data' (caused error message)
+    - FIXED  : function 'eqmcc' (new 'eQMC') used original factor labels when
+               passed an object of class 'tt' although argument 'use.letters'
+               was set to 'TRUE' in call to function 'truthTable'
+    - FIXED  : function 'print.qca' used incorrect ordering of models in multi-
+               model solutions when argument 'relation' was set to 'sufnec' in call
+               to function 'eqmcc' (new 'eQMC')
+    - NEW    : functions 'limitedDiversity', 'implicIndep', 'retention', 'submodels' 
+               and 'testTESA' for purposes of method evaluation
+    - NEW    : function 'submodels.loop' (internal)
+    - NEW    : information in documentation files on contributors (categories: 
+               development, documentation, programming, testing)

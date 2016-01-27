@@ -1,0 +1,61 @@
+useDynLib(QCApro)
+export(
+  .onAttach,
+  base3rows,
+  calibrate,
+  createChart,
+  createString,
+  demoChart,
+  DeMorgan,
+  DeMorganLoop,
+  eQMC,
+  eQMCLoop,
+  factorize,
+  findSubsets,
+  findSupersets,
+  findTh,
+  fuzzyand,
+  fuzzyor,
+  getRow,
+  getSolution,
+  implicantMatrix,
+  implicIndep,
+  is.DeMorgan,
+  is.pof,
+  is.qca,
+  is.tt,
+  is.sS,
+  limitedDiversity,
+  mintermMatrix,
+  pof,
+  prettyString,
+  prettyTable,
+  retention,
+  rowDominance,
+  solveChart,
+  sortMatrix,
+  sortVector,
+  submodels,
+  submodels.loop,
+  superSubset,
+  testTESA,
+  truthTable,
+  verify.data,
+  verify.dir.exp,
+  verify.inf.test,
+  verify.qca,
+  verify.mqca,
+  verify.tt,
+  writePrimeimp,
+  writeSolution)
+S3method(print, DeMorgan)
+S3method(print, fctr)
+S3method(print, pof)
+S3method(print, qca)
+S3method(print, mqca)
+S3method(print, pic)
+S3method(print, sS)
+S3method(print, tt)
+import(lpSolve)
+importFrom("stats", "binom.test", "cor", "cutree", "dbinom", "dist", "hclust")
+importFrom("utils", "combn", "packageDescription", "head", "tail")

@@ -1,0 +1,17 @@
+citHeader("Please cite the QCApro package as:")
+
+year <- sub("-.*", "", meta$Date)
+title <- sprintf("%s", meta$Title)
+note <- sprintf("R Package Version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         author = personList(as.person("Alrik Thiem")),
+         year = year,
+         title = title,
+         note = note,
+         url = "http://cran.r-project.org/package=QCApro",
+         textVersion = paste("Thiem, Alrik", sprintf("%s", year), title, note, 
+         "URL: http://cran.r-project.org/package=QCApro.", sep = ". ")
+)
+
+
