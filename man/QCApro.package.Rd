@@ -11,14 +11,15 @@ Professional Functionality for Performing and Evaluating Qualitative Comparative
 }
 
 \description{
-The \pkg{QCApro} package is the direct successor to the \pkg{QCA} package (\href{http://cran.r-project.org/package=QCA}{Dusa and Thiem 2014}; \href{http://www.maxwell.syr.edu/uploadedFiles/moynihan/cqrm/Newsletter10_2.pdf}{Thiem and Dusa 2012}; \href{http://dx.doi.org/10.1177/0894439313478999}{2013a}; \href{http://journal.r-project.org/archive/2013-1/thiem-dusa.pdf}{2013b}; \href{http://www.springer.com/gb/book/9781461445838}{2013c}). Just like its predecessor, \pkg{QCApro} implements the method of \dfn{Qualitative Comparative Analysis} (QCA)---a family of techniques for analyzing configurational data in accordance with the INUS theory of causation (Mackie 1965; 1974), but it has fixed various 
-methodological errors and includes many new features and enhancements for applying and testing QCA.
+\pkg{QCApro} is a successor package to the \pkg{QCA} package, with \pkg{QCA} 1.1-4 as its basis (\href{http://www.alrik-thiem.net/software/}{Dusa and Thiem 2014}; \href{http://www.maxwell.syr.edu/uploadedFiles/moynihan/cqrm/Newsletter10_2.pdf}{Thiem and Dusa 2012}; \href{http://dx.doi.org/10.1177/0894439313478999}{2013a}; \href{http://journal.r-project.org/archive/2013-1/thiem-dusa.pdf}{2013b}; \href{http://www.springer.com/gb/book/9781461445838}{2013c}). Just like its predecessor, \pkg{QCApro} implements the method of \dfn{Qualitative Comparative Analysis} (QCA)---a family of techniques for analyzing configurational data in accordance with the INUS theory of causation (Mackie 1965; 1974), but it has fixed various technical and methodological problems of the \pkg{QCA} package, it includes many new features and enhancements for applying QCA, and it provides several purpose-built functions for testing properties of QCA and QCA-related procedures.
 
 Three variants can currently be processed by \pkg{QCApro}: \dfn{crisp-set QCA} (csQCA; Ragin 1987), \dfn{multi-value QCA} (mvQCA; Cronqvist and Berg-Schlosser 2009; \href{http://dx.doi.org/10.1177/1525822x13478135}{Thiem 2013}; \href{http://dx.doi.org/10.1007/s11135-014-0015-x}{2014}) and \dfn{fuzzy-set QCA} (fsQCA; Ragin 2000; 2008). A subvariant of csQCA called \dfn{temporal QCA} (tQCA) is also available (\href{http://dx.doi.org/10.1177/0049124105277197}{Caren and Panofsky 2005}; \href{http://dx.doi.org/10.1177/0049124107313903}{Ragin and Strand 2008}).
 
-Several data-sets from various areas are integrated in \pkg{QCApro} so as to facilitate familiarization with the package's functionality. Currently covered are business, management and organization (\code{\link{d.stakeholder}}), education (\code{\link{d.education}}), environmental sciences (\code{\link{d.biodiversity}}), evaluation (\code{\link{d.transport}}), legal studies (\code{\link{d.napoleon}}), political science (\code{\link{d.jobsecurity}}, \code{\link{d.partybans}}, \code{\link{d.represent}}), public health (\code{\link{d.health}}), urban affairs (\code{\link{d.urban}}), and sociology (\code{\link{d.homeless}}, \code{\link{d.socialsecurity}}). For more details, see the data-sets' documentation files. Please also note that many more data-sets for QCA are available on the COMPASSS website at \url{http://www.compasss.org/bibdata.htm}.
+Several datasets from various areas are integrated in \pkg{QCApro} so as to facilitate familiarization with the package's functionality. Currently covered are business, management and organization (\code{\link{d.stakeholder}}), education (\code{\link{d.education}}), environmental sciences (\code{\link{d.biodiversity}}), evaluation (\code{\link{d.transport}}), legal studies (\code{\link{d.napoleon}}), political science (\code{\link{d.jobsecurity}}, \code{\link{d.partybans}}, \code{\link{d.represent}}), public health (\code{\link{d.health}}, \code{\link{d.tumorscreen}}), urban affairs (\code{\link{d.urban}}), and sociology (\code{\link{d.homeless}}, \code{\link{d.socialsecurity}}). For more details, see the datasets' documentation files. Also note that many more datasets for QCA are available on the \href{http://www.compasss.org/bibdata.htm}{COMPASSS bibliography website}.
 
-If you make use of the \pkg{QCApro} package in your work, please acknowledge it in the interest of good scientific conduct and transparency. The package citation displays on loading the package or by using the command \code{citation(package = "QCApro")} after loading. The aforesaid command also provides a suitable BibTeX entry. To browse the latest news about the \pkg{QCApro} package (bug fixes, enhancements, etc.), enter \code{news(package = "QCApro")}. For version 1.0-0, this will detail all changes in relation to the predecessor package \pkg{QCA} version 1.1-4.
+As an additional resource, \pkg{QCApro} includes a comprehensive glossary for Configurational Comparative Methods. The glossary is directly accessible via the link 'User guides, package vignettes and other documentation' in the package's help index or the 'doc' folder of the package's installation folder.
+
+If you make use of the \pkg{QCApro} package in your work, please acknowledge it in the interest of good scientific practice and transparency. The package citation displays on loading the package or by using the command \code{citation(package = "QCApro")} after loading. The aforesaid command also provides a suitable BibTeX entry. To browse the latest news about the \pkg{QCApro} package (bug fixes, enhancements, etc.), enter \code{news(package = "QCApro")} (for version 1.0-0, this details all changes in relation to \pkg{QCA} 1.1-4).
 
 Happy QCAing!
 }
@@ -27,8 +28,8 @@ Happy QCAing!
     \tabular{ll}{
     Package: \tab QCApro\cr
     Type:    \tab Package\cr
-    Version: \tab 1.0-0\cr
-    Date:    \tab 2016-01-27\cr
+    Version: \tab 1.1-1\cr
+    Date:    \tab 2016-07-07\cr
     License: \tab GPL-3\cr
     }
 }
@@ -63,7 +64,7 @@ In \emph{Configurational Comparative Methods: Qualitative Comparative Analysis (
 and Related Techniques}, eds. B. Rihoux and C. C. Ragin. London: Sage Publications, 
 pp. 69-86.
 
-Dusa, Adrian, and Alrik Thiem. 2014. \emph{QCA: A Package for Qualitative Comparative Analysis}. R Package Version 1.1-4. URL: \href{http://cran.r-project.org/package=QCA}{http://cran.r-project.org/package=QCA}.
+Dusa, Adrian, and Alrik Thiem. 2014. \emph{QCA: A Package for Qualitative Comparative Analysis}. R Package Version 1.1-4. URL: \url{http://www.alrik-thiem.net/software/}.
 
 Mackie, John L. 1965. \dQuote{Causes and Conditions.} \emph{American Philosophical Quarterly} \strong{2} (4):245-64. URL: \href{http://www.jstor.org/stable/20009173}{http://www.jstor.org/stable/20009173}.
 

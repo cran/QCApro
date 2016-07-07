@@ -1,6 +1,5 @@
 \name{superSubset}
 \alias{superSubset}
-\alias{is.sS}
 
 \title{Find Superset and Subset Relations}
 
@@ -13,8 +12,6 @@ combinations that optimize the fulfilment of the specified criteria for a supers
 superSubset(data, outcome = "", neg.out = FALSE, exo.facs = c(""), 
             relation = "nec", incl.cut = 1, cov.cut = 0, 
             use.tilde = FALSE, use.letters = FALSE, ...)
-
-is.sS(x)
 }
 
 \arguments{
@@ -31,11 +28,10 @@ is.sS(x)
   \item{use.letters}{Logical, use simple letters instead of original factor
         names.}
   \item{...}{Other arguments for backward compatibility.}
-  \item{x}{An object of class "sS".}
 }
 
 \details{
-This helper function to the \code{testTESA} function returns a list of those of the 
+This helper function to the \code{\link{testTESA}} function returns a list of those of the 
 \eqn{\prod_{j = 1}^{k}{(p_{j} + 1) - 1}}{\prod_{j = 1}^{k}{(p_{j} + 1) - 1}} 
 potential value combinations, where \eqn{p_{j}}{p_{j}} is the number of values 
 for exogenous variable \eqn{j}{j} and \eqn{k}{k} is the number of exogenous 
@@ -82,7 +78,7 @@ The argument \code{use.tilde} only applies to bivalent factors. If factors are
 already named with single letters, the argument \code{use.letters} has no effect.
 }
 
-\value{An object of class 'sS', which is a list with the following two main components:\cr
+\value{A list with the following two main components:\cr
   \item{incl.cov}{A data frame with the parameters of fit.}
   \item{coms}{A data frame with the combination membership scores.}
 }
@@ -110,7 +106,7 @@ Thiem, Alrik. 2015. \emph{Standards of Good Practice and the Methodology of Nece
 
 \examples{
 # Schneider and Wagemann (2013, 212), using data from Ragin 
-# (2009, 95), only present L and S as minimally necessary conditions
+# (2009, 95), only present G and L as minimally necessary conditions
 #-------------------------------------------------------------------
 
 LIP <- data.frame(
@@ -131,7 +127,7 @@ LIP <- data.frame(
 rownames(LIP) <- c("AT","BE","CZ","EE","FI","FR","DE","GR","HU",
                    "IE","IT","NL","PL","PT","RO","ES","SE","UK")
                    
-superSubset(LIP, outcome = "S", incl.cut = 0.9)
+rownames(superSubset(LIP, outcome = "S", incl.cut = 0.9)$incl.cov)
 
 # with mv-data from Hartmann and Kemmerzell (2010)
 #-------------------------------------------------
@@ -144,7 +140,7 @@ HK
 
 # combination membership scores for all cases (only first four 
 # combinations and first ten lines displayed)
-HK$coms[1:10, 1:4 , drop = FALSE]
+HK$coms[1:10, 1:4, drop = FALSE]
 }
 
 \keyword{functions}

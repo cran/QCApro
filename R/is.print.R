@@ -20,14 +20,6 @@ is.DeMorgan <- function(x) {
     inherits(x, "DeMorgan")
 }
 
-
-
-is.sS <- function(x) {
-    inherits(x, "sS")
-}
-
-
-
 print.tt <- function(x, ...) {
     
     other.args <- list(...)
@@ -67,7 +59,7 @@ print.tt <- function(x, ...) {
             x$tt[!misspri, "PRI"] <- formatC(as.numeric(pri[!misspri]), digits=3, format="f")
         }
         else {
-            x$tt$PRI <- NULL # get rid of the PRI column, not print it on the screen
+            x$tt$PRI <- NULL # get rid of the PRI column
         }
         
         if (any(names(x$tt) == "pval1")) {
@@ -89,8 +81,8 @@ print.tt <- function(x, ...) {
             }
         }
         
-        cat("  OUT: outcome value\n")
-        cat("    n: number of cases in configuration\n")
+        cat("  OUT: output function value\n")
+        cat("    n: number of cases in minterm\n")
         cat(" incl: sufficiency inclusion score\n")
         if (any(names(x$tt) == "pval1")) {
             cat(paste("pval1: p-value inclusion < ", x$incl.cut1, "\n", sep=""))
@@ -827,63 +819,6 @@ print.pof <- function(x, ...) {
         }
     }
 }
-
-
-
-print.sS <- function(x, ...) {
-    other.args <- list(...)
-    PRI <- FALSE
-    if ("PRI" %in% names(other.args)) {
-        if (is.logical(other.args$PRI)) {
-            PRI <- other.args$PRI[1] # [1] just to make sure only the first value is taken, should someone by mistake provide a vector
-        }
-    }
-    
-    if ("PRI" %in% names(x)) {
-        if (is.logical(x$PRI)) {
-            PRI <- x$PRI[1]
-        }
-    }
-    
-    if (x$use.letters) {
-     exo.facs <- names(x$letters)
-        xletters <- as.vector(x$letters)
-        if (!all(exo.facs %in% xletters)) {
-            cat("\n")
-            for (i in seq(length(xletters))) {
-                cat("    ", paste(xletters[i], ": ", sep=""), exo.facs[i], "\n", sep="")
-            }
-        }
-    }
-    
-    incl.cov <- x$incl.cov
-    cat("\n")
-    prettyNums <- format(seq(nrow(incl.cov)))
-    rownames(incl.cov) <- format(rownames(incl.cov))
-    colnames(incl.cov) <- format(colnames(incl.cov), width=5)
-    for (i in seq(ncol(incl.cov))) {
-        NAs <- is.na(incl.cov[, i])
-        incl.cov[!NAs, i] <- formatC(incl.cov[!NAs, i], digits=3, format="f")
-        incl.cov[NAs, i] <- "  -  "
-    }
-    
-    if (!PRI) {
-         # get rid of the PRI column, not print it on the screen
-        incl.cov <- incl.cov[, -which(grepl("PRI", colnames(incl.cov)))]
-    }
-    
-    nchar.rownames <- nchar(rownames(incl.cov)[1])
-    cat(paste(c(paste(rep(" ", nchar.rownames + nchar(nrow(incl.cov)) + 2), collapse=""), format(colnames(incl.cov))), collapse="  "), "\n")
-    sep.row <- paste(rep("-", nchar.rownames + nchar(nrow(incl.cov)) + 7 * ncol(incl.cov) + 2), collapse="")
-    cat(sep.row, "\n")
-    
-    for (i in seq(nrow(incl.cov))) {
-        cat(paste(prettyNums[i], paste(c(rownames(incl.cov)[i], incl.cov[i, ]), collapse="  "), sep="  "), "\n")
-    }
-    cat(sep.row, "\n")
-    cat("\n")
-}
-
 
 
 print.fctr <- function(x, ...) {

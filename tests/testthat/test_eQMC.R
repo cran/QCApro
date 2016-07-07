@@ -19,7 +19,7 @@ test_that("eQMC performs the minimization", {
               "Directional expectations cannot be specified")
  
  expect_error(eQMC(dat, outcome = "Y", minimize = ""), 
-              "You have not specified any min-terms")
+              "You have not specified any minterms")
  
  expect_error(eQMC(dat, outcome = "Y", minimize = c("2")), 
               "The specified value to the argument 'minimize'")

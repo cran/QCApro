@@ -7,7 +7,7 @@
 \description{
 This evaluation function computes all correctness-preserving submodels of a QCA reference 
 model. It has initially been programmed for \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem (2015)} to test 
-the correctness of QCA's three solution types (conservative/complex, intermediate, 
+the correctness of QCA's three search strategies (conservative/complex, intermediate, 
 parsimonious).
 }
 
@@ -25,7 +25,7 @@ submodels(expression, noflevels = c(), test = TRUE)
 }
 
 \details{
-This function has initially been programmed for Baumgartner and Thiem (2015) to 
+This function has initially been programmed for \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem (2015)} to 
 test the correctness of QCA's three solution types (conservative/complex, 
 intermediate, parsimonious). It computes all submodels of a csQCA or an fsQCA 
 reference model that do not violate the criterion of correctness (mvQCA models 
@@ -124,6 +124,12 @@ sapply(models5, "[")
 # be identified computationally
 submodels("aB + Ac + Ad + bc + bd + CD")
 
+# can a + AbC => Y be an acceptable QCA solution as Schneider and Wagemann 
+# (2012, p. 108) argue? No, because in Boolean algebra, it holds that
+# F + fG = (F + f) * (F + G) = 1*(F + G) = F + G by the laws of distribution,
+# complementarity, and identity
+submodels("a + AbC => Y", test = TRUE)
+
 # proof that the conservative/complex solution type of QCA is incorrect, 
 # using model 3 from above (see Baumgartner and Thiem (2015) for more details)
 
@@ -133,7 +139,7 @@ dimnames(tt) <- list(as.character(1:32), c(LETTERS[1:4], "OUT"))
 tt <- tt[pmax(pmin(1 - tt$A, tt$B), pmin(tt$B, 1 - tt$C), tt$D) == tt$OUT, ]
 
 # 2. use function 'limitedDiversity' to generate all conservative/complex
-# solutions for all 16 + 120 scenarios of one/two dropped min-term/s
+# solutions for all 16 + 120 scenarios of one/two dropped minterm/s
 sollist.cs <- vector("list", 2)
 sollist.cs <- lapply(1:2, function (x) {
   limitedDiversity(tt, outcome = "OUT", sol.type = "cs", n.drop = x)
@@ -141,8 +147,8 @@ sollist.cs <- lapply(1:2, function (x) {
 )
 
 # 3. compute in how many scenarios a correctness-preserving submodel of 
-# model 3 was part of the solution (43.75\% for one dropped min-term and 
-# 16.67\% for two dropped min-terms)
+# model 3 was part of the solution (43.75\% for one dropped minterm and 
+# 16.67\% for two dropped minterms)
 cs.correct <- numeric(2)
 cs.correct <- sapply(1:2, function (x) {round((sum(unlist(lapply(
   sollist.cs[[x]][[2]], function (y) {any(models3$submodels \%in\% y)}

@@ -1,3 +1,31 @@
+VERSION 1.1-1
+
+    - CHANGED: minor updates to documentation
+    - CHANGED: minor updates to glossary of CCM terms
+    
+    
+VERSION 1.1-0
+
+    - CHANGED: minor updates to documentation
+    - CHANGED: minor updates to printing functions
+    - CHANGED: use of lower-case letters in factor names and the outcome caused 
+               error message in functions 'eQMC' and 'truthTable'; these functions 
+               now return a warning but proceed by transforming to upper-case letters
+    - CHANGED: object class 'sS' and associated print function 'print.sS' removed
+    - FIXED  : bug in function 'submodels' returned too few models when
+               provided a solution object of class 'qca' with a negated outcome,
+               and an incorrect error message when provided a model with a 
+               negated outcome as a string
+    - NEW    : extensive glossary of QCA/CNA terms added (co-authored with Michael 
+               Baumgartner)
+    - NEW    : function 'ambiguity' for analyzing the extent of model ambiguities
+               across a variety of QCA designs (including verification function 
+               'verify.ambig')
+    - NEW    : function 'randomDGS' for random generation of data-generating
+               structures (QCA models)
+    - NEW    : dataset 'd.tumorscreening'
+    
+
 VERSION 1.0-0
   
   o launch version: main changes to predecessor package 'QCA', version 1.1-4:

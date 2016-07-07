@@ -43,8 +43,8 @@ limitedDiversity <- function (truth.tab, outcome = "", exo.facs = c(""),
   # if the number of truth table rows is smaller than n.drop
   if (rows.truth.tab < n.drop) {
       
-      errmsg <- paste0("The number of min-terms to be dropped (", n.drop, 
-                       ") cannot be larger than the number of observed min-terms 
+      errmsg <- paste0("The number of minterms to be dropped (", n.drop, 
+                       ") cannot be larger than the number of observed minterms 
                        in the truth table (", rows.truth.tab,").")
       cat("\n")
       stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
@@ -53,14 +53,14 @@ limitedDiversity <- function (truth.tab, outcome = "", exo.facs = c(""),
   # if any other value/s apart from only 0 or only 1 are assigned to c.minterms
   if (length(c.minterms) > 1 & !c.minterms %in% c(0,1)) {
    
-      errmsg <- paste0("The number of min-terms to be dropped (", n.drop, 
-                       ") cannot be larger than the number of observed min-terms 
+      errmsg <- paste0("The number of minterms to be dropped (", n.drop, 
+                       ") cannot be larger than the number of observed minterms 
                        in the truth table (", rows.truth.tab,").")
       cat("\n")
       stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
   }
   
-  # combinations of min-terms to be dropped
+  # combinations of minterms to be dropped
   cbs <- combn(rows.truth.tab, n.drop)
   
   solist <- lapply(seq(ncol(cbs)), function (x) {

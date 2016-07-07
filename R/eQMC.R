@@ -67,7 +67,7 @@ eQMC <- function(data, outcome = c(""), neg.out = FALSE, exo.facs = c(""),
                           ... = ...))
       }
    
-      verify.qca(minimize)
+      verify.qca(minimize = minimize)
       
       outcome.copy <- outcome
       indata <- data # important before altering the outcome, if multi-value
@@ -96,11 +96,12 @@ eQMC <- function(data, outcome = c(""), neg.out = FALSE, exo.facs = c(""),
       # if no exogenous factors are specified, use all factors except that of the outcome
       if (all(gsub("\\s", "", exo.facs, perl = TRUE) == "")) {
        
-       exo.facs <- colnames(data)[-which(colnames(data) == outcome)]
+          exo.facs <- colnames(data)[-which(colnames(data) == outcome)]
       }
       
       # make sure all relevant labels are uppercase
-      colnames(data[, c(exo.facs, outcome)]) <- toupper(colnames(data[, c(exo.facs, outcome)]))
+      idx.names <- match(colnames(data[, c(exo.facs, outcome)]), colnames(data))
+      colnames(data)[idx.names] <- toupper(colnames(data)[idx.names])
       exo.facs <- toupper(exo.facs)
       outcome <- toupper(outcome)
         
@@ -139,7 +140,7 @@ eQMC <- function(data, outcome = c(""), neg.out = FALSE, exo.facs = c(""),
       # check if minimize has both 1 and 0
         if (length(chminimize) == 2) {
         
-            stop("\nPositive and negative min-terms must not be combined.\n\n", call. = FALSE)
+            stop("\nPositive and negative minterms must not be combined.\n\n", call. = FALSE)
         }
         
         tt <- data
@@ -231,14 +232,14 @@ eQMC <- function(data, outcome = c(""), neg.out = FALSE, exo.facs = c(""),
     
     if (nrow(expl.matrix) == 0) {
         
-        stop("\nAll observed min-terms have the same function value. Please check the truth table.\n\n", call. = FALSE)
+        stop("\nAll observed minterms have the same function value. Please check the truth table.\n\n", call. = FALSE)
     }
     
     incl.rem <- "?" %in% include
     
     if (nrow(excl.matrix) == 0 & incl.rem) {
     
-        stop("\nAll observed min-terms have the same function value. Please check the truth table.\n\n", call. = FALSE)
+        stop("\nAll observed minterms have the same function value. Please check the truth table.\n\n", call. = FALSE)
     }
     
      # expl.matrix needs to be unaltered for the incl.rem argument

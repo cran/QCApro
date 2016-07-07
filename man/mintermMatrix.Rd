@@ -2,11 +2,11 @@
 
 \alias{mintermMatrix}
 
-\title{Create Minterm and Implicant Matrices}
+\title{Create Minterm Matrices}
 
 \description{
-This function creates configuration and implicant matrices. It is mainly 
-used for internal and demonstration purposes.
+This function creates minterm and implicant matrices. It is mainly used for 
+internal and demonstration purposes.
 }
 
 \usage{
@@ -14,25 +14,18 @@ mintermMatrix(noflevels, logical = FALSE)
 }
 
 \arguments{
-  \item{noflevels}{The number of levels (values) for each condition variable.}
+  \item{noflevels}{The number of levels for each exogenous factor.}
   \item{logical}{Logical, return the matrix in logical values (only bivalent data).}
 }
 
 \details{
-Minterm matrices contain all unique and complete intersections that can 
-be formed from all values of \eqn{k} variables. The total number of configurations
-\eqn{d}{d} is given by 
-\eqn{d = \prod_{j = 1}^{k}{p_{j}}}{d = \prod_{j = 1}^{k}{p_{j}}}, 
-where \eqn{p_{j}}{p_{j}} is the number of values for condition variable 
-\eqn{j} and \eqn{k} is the total number of condition variables. A 
-configuration matrix is an essential part of a truth table.
-
-An implicant matrix consists of all truth table configurations and their 
-supersets, including the empty set (Dusa 2007, 2010). The number of implicants 
-\eqn{q}{q} is given by 
-\eqn{q = \prod_{j = 1}^{k}{(p_{j} + 1)}}{q = \prod_{j = 1}^{k}{(p_{j} + 1)}}.
-For demonstration purposes, implicant matrices should be created by the 
-function \code{implicantMatrix()}.
+Minterm matrices contain all unique and complete conjunctions that can 
+be formed from all levels of \eqn{k} factors (Dusa and Thiem 2015). The total 
+number of minterms \eqn{d}{d} is given by 
+\eqn{d = \prod_{j = 1}^{k}{p_{j}}}{d = \prod_{j = 1}^{k}{p_{j}}}, where 
+\eqn{p_{j}}{p_{j}} is the number of levels for exogenous factor \eqn{j} and 
+\eqn{k} is the total number of exogenous factors. A minterm matrix is an essential 
+part of a truth table.
 }
 
 \author{
@@ -45,33 +38,18 @@ Thiem, Alrik\tab: development, documentation, testing
 }}
 
 \references{
-Dusa, Adrian. 2007. \emph{Enhancing Quine-McCluskey}. COMPASSS: Working Paper 
-2007-49. URL: \url{http://www.compasss.org/wpseries/Dusa2007b.pdf}.
-
-Dusa, Adrian. 2010. \dQuote{A Mathematical Approach to the Boolean Minimization 
-Problem.} \emph{Quality & Quantity} 44 (1):99-113.
-DOI: \href{http://dx.doi.org/10.1007/s11135-008-9183-x}{10.1007/s11135-008-9183-x}.
+Dusa, Adrian, and Alrik Thiem. 2015. \dQuote{Enhancing the Minimization of Boolean and Multivalue Output Functions with \emph{e}QMC.} \emph{Journal of Mathematical Sociology} \strong{39} (2):92-108. DOI: \href{http://dx.doi.org/10.1080/0022250X.2014.897949}{10.1080/0022250X.2014.897949}.
 }
 
 \seealso{\code{\link{implicantMatrix}}, \code{\link{truthTable}}}
 
 \examples{
-# a configuration matrix with three bivalent condition variables
+# a minterm matrix with three bivalent exogenous factors
 noflevels <- rep(2, 3)
 mintermMatrix(noflevels)
 
 # with logical values
 mintermMatrix(noflevels, logical = TRUE)
-
-# its implicant matrix ("-1" stands for an eliminated value)
-mintermMatrix(noflevels + 1) - 1
-
-# a configuration matrix (the second variable has three values) 
-noflevels <- c(2, 3, 2)
-mintermMatrix(noflevels)
-
-# its implicants matrix
-mintermMatrix(noflevels + 1) - 1
 }
 
 \keyword{functions}

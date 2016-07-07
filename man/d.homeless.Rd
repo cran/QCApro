@@ -41,7 +41,7 @@ Thiem, Alrik: collection, documentation
 \source{
 Cress, Daniel M., and David A. Snow. 2000. \dQuote{The Outcomes of Homeless Mobilization: 
 The Influence of Organization, Disruption, Political Mediation, and Framing.} 
-\emph{American Journal of Sociology} 105 (4):1063-104. \href{http://www.jstor.org/stable/3003888}{Link}.
+\emph{American Journal of Sociology} \strong{105} (4):1063-104. \href{http://www.jstor.org/stable/3003888}{Link}.
 }
 
 \keyword{datasets}

@@ -22,13 +22,13 @@
 \alias{print.pof}
 \alias{print.qca}
 \alias{print.mqca}
-\alias{print.sS}
 \alias{print.tt}
 \alias{rowDominance}
 \alias{solveChart}
 \alias{sortVector}
 \alias{sortMatrix}
 \alias{submodels.loop}
+\alias{verify.ambig}
 \alias{verify.data}
 \alias{verify.dir.exp}
 \alias{verify.inf.test}

@@ -21,7 +21,7 @@ truthTable <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     # call the verification function for truth tables
     if (!via.pof) {
      
-        verify.tt(data = data, outcome = outcome, exo.facs = exo.facs, 
+        verify.tt(data = data, outcome = outcome, neg.out = neg.out, exo.facs = exo.facs, 
                   complete = complete, show.cases = show.cases, incl.cut1 = incl.cut1, 
                   incl.cut0 = incl.cut0, inf.test = inf.test)
     }
@@ -41,10 +41,11 @@ truthTable <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     if (all(gsub("\\s", "", exo.facs, perl = TRUE) == "")) {
      
         exo.facs <- colnames(data)[-which(colnames(data) == outcome)]
-    } 
+    }
     
     # make sure all relevant labels are uppercase
-    colnames(data[, c(exo.facs, outcome)]) <- toupper(colnames(data[, c(exo.facs, outcome)]))
+    idx.names <- match(colnames(data[, c(exo.facs, outcome)]), colnames(data))
+    colnames(data)[idx.names] <- toupper(colnames(data)[idx.names])
     exo.facs <- toupper(exo.facs)
     outcome <- toupper(outcome)
     

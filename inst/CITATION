@@ -9,9 +9,9 @@ bibentry(bibtype = "Manual",
          year = year,
          title = title,
          note = note,
-         url = "http://cran.r-project.org/package=QCApro",
+         url = "http://www.alrik-thiem.net/software/",
          textVersion = paste("Thiem, Alrik", sprintf("%s", year), title, note, 
-         "URL: http://cran.r-project.org/package=QCApro.", sep = ". ")
+         "URL: http://www.alrik-thiem.net/software/.", sep = ". ")
 )
 
 

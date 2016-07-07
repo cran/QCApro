@@ -3,7 +3,7 @@ submodels <- function (expression, noflevels = c(), test = TRUE) {
   function.call <- match.call()
   qca.object <- is.qca(expression)
   
-  # test whether "expression" is an object of class "qca"  
+  # test whether "expression" is an object of class 'qca'  
   if (qca.object) {
       
       cn <- colnames(expression$tt$tt)
@@ -181,7 +181,8 @@ submodels <- function (expression, noflevels = c(), test = TRUE) {
       strsplit(gsub("[*]", "", antec), "\\+")[[1]]
     }
    
-    paste0("(", paste0(doWord(parts), collapse = " | "), ") == (tt$", 
+    paste0("(", paste0(doWord(parts), collapse = " | "), ") == (", 
+           ifelse(all(strsplit(out.f, "")[[1]] %in% letters), "!", ""), "tt$", 
            toupper(out.f), ")")
   }
   
@@ -255,9 +256,9 @@ submodels <- function (expression, noflevels = c(), test = TRUE) {
           if (!antec.sorted.test %in% unlist(sol.list.test)) {
         
               errmsg <- paste0("The provided model, ", expression.initial, ", 
-                                is no causal structure. It is likely to be a 
-                                case of FG + fH + GH = FG + fH or 
-                                FG + fg + HF + HG = g + H.")
+                                is no causal structure. It is quite possibly a 
+                                case of F + fG = F + G, FG + fH + GH = FG + fH 
+                                or FG + fg + HF + HG = g + H.")
               cat("\n")
               stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
           }
@@ -335,17 +336,17 @@ submodels <- function (expression, noflevels = c(), test = TRUE) {
               dis.b <- strsplit(mods[i, cbs[2, j]], split = "")[[1]]
               dis.ints <- intersect(dis.a, dis.b)
           
-                if (length(setdiff(dis.a, dis.ints)) == 1) {
+              if (length(setdiff(dis.a, dis.ints)) == 1) {
            
-                    dis.a <- setdiff(dis.a, dis.ints)
-                    dis.b <- setdiff(dis.b, dis.ints)
-                    subs[i, j] <- tolower(dis.a) %in% tolower(dis.b)
-                } 
-            
-                else {
+                  dis.a <- setdiff(dis.a, dis.ints)
+                  dis.b <- setdiff(dis.b, dis.ints)
+                  subs[i, j] <- tolower(dis.a) %in% tolower(dis.b)
+              } 
+          
+              else {
              
-                    subs[i, j] <- 0
-                }
+                  subs[i, j] <- 0
+              }
           } 
       
           else {
@@ -523,7 +524,7 @@ submodels.loop <- function (expression) {
   
   for (i in seq(length(expression$solution))) {
 
-       antec.qca.model <- paste(expression$solution[[i]], collapse = "+") 
+       antec.qca.model <- paste(expression$solution[[i]], collapse = " + ") 
        full.qca.model <- paste0(antec.qca.model, relations[i], 
                                 ifelse(!neg.out, expression$tt$outcome, 
                                        tolower(expression$tt$outcome)))   

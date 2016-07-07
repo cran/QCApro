@@ -2,13 +2,12 @@
 \alias{testTESA}
 
 \title{
-Testing Schneider and Wagemann's Theory-Guided/Enhanced Standard Analysis (T/ESA).
+Testing Schneider and Wagemann's Theory-Guided/Enhanced Standard Analysis (T/ESA)
 }
 
 \description{
 This evaluation function can be used to test the implications of Schneider and Wagemann's 
-Theory-Guided/Enhanced Standard Analysis (T/ESA; Schneider and Wagemann 2013), 
-and in particular, the procedure's first two stages, with respect to the extent of remainders that would have to be declared insufficient for the outcome.
+Theory-Guided/Enhanced Standard Analysis (T/ESA; \href{http://dx.doi.org/10.1177/1065912912468269}{Schneider and Wagemann 2013}), and in particular, the procedure's first two stages, with respect to the extent of remainders that would have to be declared insufficient for the outcome.
 }
 
 \usage{
@@ -17,11 +16,10 @@ testTESA(data, outcome = "", neg.out = FALSE, exo.facs = c(""), n.cut = 1,
 }
 
 \arguments{
-  \item{data}{A truth table object or a dataset of bivalent crisp-set factors or
-        bivalent fuzzy-set variables or multivalent crisp-set factors.}
-  \item{outcome}{A vector of outcomes.}
-  \item{neg.out}{Logical, use negation of \code{outcome} (ignored if \code{data}
-        is a truth table object).}
+  \item{data}{A dataset of bivalent crisp-set factors or bivalent fuzzy-set factors 
+        or multivalent crisp-set factors.}
+  \item{outcome}{The name of the outcome.}
+  \item{neg.out}{Logical, use negation of \code{outcome}.}
   \item{exo.facs}{A character vector with the names of the exogenous factors.}
   \item{n.cut}{The minimum number of cases with set membership score above 0.5 
         for an output function value of "0", "1" or "C".}
@@ -32,14 +30,11 @@ testTESA(data, outcome = "", neg.out = FALSE, exo.facs = c(""), n.cut = 1,
 }
 
 \details{
-The arguments \code{data}, \code{outcome}, \code{exo.facs}, \code{include}, 
-\code{incl.cut1}, \code{incl.cut0} and \code{dir.exp} are those of the 
-\code{\link{eQMC}} function.
+The arguments \code{data}, \code{outcome}, \code{exo.facs}, \code{n.cut}, \code{incl.cut1} and \code{incl.cut0} are those of the \code{\link{eQMC}} function.
 }
 
 \value{
-A numeric vector with the percentages of simplifying assumptions eliminated
-by T/ESA.
+A numeric vector with the percentages of remainder minterms that would have been used as simplifying assumptions by Quine-McCluskey optimization but that were declared to be insufficient for the outcome by T/ESA.
 }
 
 \author{

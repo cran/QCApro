@@ -8,8 +8,8 @@
 \description{
 This function performs the minimization. Although it is called '\emph{e}QMC', the 
 implemented algorithm is different from the classical Quine-McCluskey (QMC) 
-algorithm. Instead of QMC's approach of using positive min-terms and remainders
-to perform minimization, \emph{e}QMC uses positive and negative min-terms, but no 
+algorithm. Instead of QMC's approach of using positive minterms and remainders
+to perform minimization, \emph{e}QMC uses positive and negative minterms, but no 
 remainders. See \href{http://dx.doi.org/10.1080/0022250X.2014.897949}{Dusa and Thiem (2015)} and \href{http://dx.doi.org/10.1177/0049124115589032}{Thiem (2015)} for more details.
 }
 
@@ -27,7 +27,7 @@ is.qca(x)
 \arguments{
   \item{data}{A truth table object or a set of configurational data (of class 
        'matrix' or 'data.frame').}
-  \item{outcome}{A vector of outcomes.}
+  \item{outcome}{A character vector of outcomes.}
   \item{neg.out}{Logical, use negation of \code{outcome} (ignored if \code{data}
         is a truth table object).}
   \item{exo.facs}{A character vector with the names of the exogenous factors.}
@@ -36,7 +36,7 @@ is.qca(x)
         or \code{"sufnec"} (both sufficiency and necessity required).}
   \item{n.cut}{The minimum number of cases with set membership score above 0.5 
         for an output function value of "0", "1" or "C"; an integer between 1 and
-        the maximum number of cases for all non-remainder min-terms.}
+        the maximum number of cases for all non-remainder minterms.}
   \item{incl.cut1}{The minimum sufficiency inclusion score for an output function 
         value of "1".}
   \item{incl.cut0}{The maximum sufficiency inclusion score for an output function 
@@ -44,9 +44,9 @@ is.qca(x)
   \item{minimize}{A vector of output function values for which a solution is sought.}
   \item{sol.type}{A character scalar specifying the QCA solution type that should 
         be applied; either "ps" (parsimonious solution), "ps+" (parsimonious 
-        solution including both positive and contradiction min-terms), "cs" (
+        solution including both positive and contradiction minterms), "cs" (
         conservative solution) or "cs+" (conservative solution including both 
-        positive and contradiction min-terms). Note that only "ps" and "ps+" 
+        positive and contradiction minterms). Note that only "ps" and "ps+" 
         generate correct solutions.}
   \item{row.dom}{Logical, impose row dominance as a constraint on the solution to
         eliminate dominated inessential prime implicants. For causal data analysis,
@@ -55,7 +55,7 @@ is.qca(x)
         solution to eliminate models with more prime implicants than the model(s) 
         with the fewest prime implicants. For causal data analysis, this argument 
         must be set to \code{FALSE}.}
-  \item{omit}{A vector of min-term index values or a matrix of min-terms to be 
+  \item{omit}{A vector of minterm index values or a matrix of minterms to be 
         omitted from minimization.}
   \item{dir.exp}{A vector of directional expectations for deriving intermediate 
         solutions; can only be used in conjunction with \code{sol.type = "ps"}
@@ -94,7 +94,7 @@ curly-bracket notation (e.g., \code{O{value}}) if the outcome is from a multival
 factor (e.g., \code{O} as a short-cut for \code{O{1}}). Outcomes from multivalent crisp-set factors always require curly-bracket notation. Outcomes can be single 
 levels of factors not simultaneously passed to \code{exo.facs}, or levels from 
 any subset of the factors specified in \code{exo.facs} if \code{data} is not a 
-truth table object. At least one outcome always has to be specified.
+truth table object. At least one outcome has to be specified.
 
 If multiple outcomes are specified, their factors must also be specified in 
 \code{exo.facs}. In this case, solution details will not be printed by default 
@@ -114,33 +114,33 @@ model and the outcome. It accepts either the value \code{"suf"} or \code{"sufnec
 If \code{relation = "suf"} (default), only sufficiency is used as a criterion in 
 identifying a model. If \code{relation = "sufnec"}, models must be sufficient and 
 necessary for the outcome to be identified. The argument \code{incl.cut1} then 
-acts as the cut-off for the sufficiency inclusion of a min-term as well as the 
+acts as the cut-off for the sufficiency inclusion of a minterm as well as the 
 necessity inclusion of the final model(s).
 
-Min-terms that contain fewer than \code{n.cut} cases with membership scores above 
+Minterms that contain fewer than \code{n.cut} cases with membership scores above 
 0.5 are coded as remainders (\code{OUT = "?"}). If the number of such cases is at 
-least \code{n.cut}, min-terms with an inclusion score of at least \code{incl.cut1} 
-are coded positive (\code{OUT = "1"}), min-terms with an inclusion score below 
+least \code{n.cut}, minterms with an inclusion score of at least \code{incl.cut1} 
+are coded positive (\code{OUT = "1"}), minterms with an inclusion score below 
 \code{incl.cut1} but with at least \code{incl.cut0} are coded as a contradiction 
-(\code{OUT = "C"}), and min-terms with an inclusion score below \code{incl.cut0} 
+(\code{OUT = "C"}), and minterms with an inclusion score below \code{incl.cut0} 
 are coded negative (\code{OUT = "0"}). If \code{incl.cut0} is not explicitly 
 changed, it is set equal to \code{incl.cut1}.
 
 The argument \code{minimize} specifies a vector of suitable values of the output
 function for which a solution is sought. Vectors of such values are \code{"1"}
-(default; positive min-terms), \code{"C"} (contradictions), \code{"0"} (negative
-min-terms), \code{c("1", "C")} and \code{c("0", "C")}, but not \code{c("1", "0")} 
+(default; positive minterms), \code{"C"} (contradictions), \code{"0"} (negative
+minterms), \code{c("1", "C")} and \code{c("0", "C")}, but not \code{c("1", "0")} 
 and \code{c("1", "0", "C")}. Note that for \code{"0"}, \code{"C"} and 
-\code{c("0", "C")}, the respective min-terms will be processed but no solution 
+\code{c("0", "C")}, the respective minterms will be processed but no solution 
 details will be printed. Also note that \code{minimize = "0"} is not the same
 as using \code{neg.out = TRUE}.
 
 The argument \code{sol.type} specifies the QCA solution type that should be 
-applied. It accepts either \code{"ps"} (default, parsimonious solution), 
-\code{"ps+"} (parsimonious solution including both positive min-terms and 
+generated. It accepts either \code{"ps"} (default, parsimonious solution), 
+\code{"ps+"} (parsimonious solution including both positive minterms and 
 contradictions), \code{"cs"} (conservative solution) or \code{"cs+"} (conservative 
-solution including both positive min-terms and contradictions). As only the 
-parsimonious solution generates methodologically correct solutions ( \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner 
+solution including both positive minterms and contradictions). As only the 
+parsimonious solution generates methodologically correct solutions (\href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner 
 and Thiem 2015a}), \code{sol.type} should normally be left unchanged.
 
 The logical argument \code{row.dom} controls whether the principle of row dominance
@@ -158,14 +158,14 @@ of prime implicants of the model(s) with the fewest prime implicants will not be
 returned. \emph{For purposes of causal data analysis, both} \code{row.dom} 
 \emph{and} \code{min.dis} \emph{must be set to} \code{FALSE} (\href{http://dx.doi.org/10.1177/0049124115610351}{Baumgartner and Thiem 2015b}; \href{http://dx.doi.org/10.1177/0193841x14550863}{Thiem 2014b}).
 
-The argument \code{omit} can be used to omit min-terms from the minimization 
+The argument \code{omit} can be used to omit minterms from the minimization 
 process \emph{ex ante}. It accepts a vector of row numbers from the truth table 
-or a matrix of min-terms of the same order as passed to the \code{truthTable} 
+or a matrix of minterms of the same order as passed to the \code{truthTable} 
 function (if the argument \code{data} is a truth table object) or as specified
 in the argument \code{exo.facs}.
 
-Neither conservative nor intermediate solutions produce correct solutions (\href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem 2015a}). The 
-\code{dir.exp} argument is retained only for purposes of method evaluation in 
+Neither the conservative nor the intermediate search strategy of QCA produce 
+correct solutions (\href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem 2015a}). The \code{dir.exp} argument is retained only for purposes of method evaluation in 
 relation to intermediate solutions. It specifies directional expectations for 
 separating easy from difficult counterfactuals in simplifying assumptions. For 
 bivalent crisp and fuzzy-set factors, expectations should be specified as a vector 
@@ -192,14 +192,14 @@ of the parameters-of-fit table.
 The logical argument \code{show.cases} controls whether case names are displayed
 next to their corresponding prime implicants (do not use with many cases and/or 
 long case names!). In the parameters-of-fit table, semicolons separate cases from 
-different min-terms, whereas commas separate cases from the same min-term.
+different minterms, whereas commas separate cases from the same minterm.
 
 The argument \code{inf.test} provides functionality for basing output function
 value codings on inference-statistical tests. Currently, only an exact binomial
 test (\code{"binom"}) is available, which requires the data to contain only
 bivalent or multivalent crisp-set factors. The argument requires a vector of
 length two, comprising the test and a critical significance level. If the
-empirical inclusion score of a min-term is not significantly lower than 
+empirical inclusion score of a minterm is not significantly lower than 
 \code{incl.cut1}, it will be coded positive (\code{OUT = "1"}). If it is 
 significantly lower than \code{incl.cut1} yet still significantly higher than 
 \code{incl.cut0}, it will be coded as a contradiction (\code{OUT = "C"}). If it
@@ -215,8 +215,8 @@ upper-case letters will replace original factor names in alphabetical order.
        outcomes. Objects of class 'qca' are lists with the following 
        ten main components:\cr
   \item{tt}{The truth table object.}
-  \item{excluded}{The line numbers of the negative min-terms.}
-  \item{initials}{The positive (non-remainder) min-terms.}
+  \item{excluded}{The line numbers of the negative minterms.}
+  \item{initials}{The positive (non-remainder) minterms.}
   \item{PIs}{The prime implicants.}
   \item{PIchart}{The list of prime implicant charts.}
   \item{solution}{The list of solutions.}
@@ -388,7 +388,7 @@ mmv.s
 
 # causal chains with QCA (Thiem 2015); data from Baumgartner (2009);
 # note that CNA and QCA results are not always equal because CNA applies a
-# different concept of the truth table that does not take each min-term's
+# different concept of the truth table that does not take each minterm's
 # individual inclusion score into consideration
 #-----------------------------------------------------------------------------
 d.Bau <- data.frame(
@@ -430,7 +430,7 @@ CS <- data.frame(mintermMatrix(rep(2,5)))
 CS$Z <- sample(0:1, 2^5, replace = TRUE)
 
 # randomly draw 20 cases to create a limitedly diverse data-set 'CS.LD'
-# and turn all 12 remainder min-terms into observations that occur with 
+# and turn all 12 remainder minterms into observations that occur with 
 # 'Z = 0' in original data-set 'CS'
 CS.LD <- CS[sample(1:2^5, 20), ]
 change <- as.numeric(setdiff(rownames(CS), rownames(CS.LD)))
@@ -443,13 +443,13 @@ CS.LD.sol <- eQMC(CS.LD, outcome = "Z", sol.type = "cs")
 # test whether the two solutions are identical
 identical(unlist(CS.LD.sol$solution), unlist(CS.sol$solution))
 
-# both solutions are identical, for two very different data sets, 
-# indicating that QCA-CS draws causal inferences beyond what the data 
-# warrants; the lower the diversity index (ratio of non-remainder
-# min-terms to all min-terms), the stronger the assumptions QCA-CS makes
+# both solutions are identical, for two datasets that do not allow the same
+# causal inferences to be made; this indicates that QCA-CS draws causal inferences 
+# beyond what the data warrants; the lower the diversity index (ratio of non-remainder
+# minterms to all minterms), the stronger the assumptions QCA-CS makes
 
 \dontrun{
-# R packages QCAGUI 2.0 (Dusa 2007) and QCA3 (Huang 2014) 
+# R packages QCAGUI 2.3 (Dusa 2007) and QCA3 (Huang 2014) 
 # produce incorrect solutions
 #--------------------------------------------------------
 dat <- as.data.frame(mintermMatrix(rep(2, 5)))
@@ -460,18 +460,14 @@ dimnames(dat) <- list(as.character(1:2^5), LETTERS[1:5])
 dat <- dat[((dat$A == 1 | dat$B == 1 | dat$D == 1) == dat$E) & 
            ((dat$C == 1 | dat$D == 1) == dat$E), ]
 
-# QCAGUI/QCA 2.0 returns incorrect solutions AC + BC + D <=> E 
-# (default settings; onservative solution) and C + D <=> E 
+# QCAGUI 2.3 returns incorrect solutions AC + BC + D <=> E 
+# (default settings; conservative solution) and C + D <=> E 
 # (non-default settings; parsimonious solution)
 
 install.packages("QCAGUI") # if not yet installed
 library(package = "QCAGUI")
 QCAGUI::eqmcc(dat, outcome = "E")
 QCAGUI::eqmcc(dat, outcome = "E", include = "?")
-remove.packages("QCAGUI") # to deinstall QCAGUI
-
-# close R to cleanly unload QCAGUI package components 
-# (otherwise conflicts with QCApro may occur)
 
 # QCA3 returns the same incorrect solutions
 install.packages("QCA3") # if not yet installed
@@ -482,7 +478,9 @@ QCA3::reduce(cs_truthTable(dat, outcome = "E",
 QCA3::reduce(cs_truthTable(dat, outcome = "E", 
              condition = c("A", "B", "C", "D")), remainders = "include")
 
-remove.packages("QCA3") # to deinstall QCA3
+remove.packages(c("QCA", "QCA3", "QCAGUI"))
+# close and re-open R to cleanly unload all components of removed packages 
+# (otherwise conflicts with QCApro may occur)
 
 
 

@@ -221,7 +221,7 @@ superSubset <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     if (PRI) {
         out.list$PRI <- PRI
     }
-    return(structure(out.list, class="sS"))
+    return(out.list)
 }
 
 

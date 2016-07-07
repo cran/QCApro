@@ -24,7 +24,7 @@ is.tt(x)
   \item{exo.facs}{A character vector with the names of the exogenous factors.}
   \item{n.cut}{The minimum number of cases with set membership score above 0.5 
         for an output function value of "0", "1" or "C"; an integer between 1 and
-        the maximum number of cases for all non-remainder min-terms.}
+        the maximum number of cases for all non-remainder minterms.}
   \item{incl.cut1}{The minimum sufficiency inclusion score for an output function 
         value of "1".}
   \item{incl.cut0}{The maximum sufficiency inclusion score for an output function 
@@ -71,20 +71,20 @@ that computation times may increase significantly beyond 17 exogenous factors,
 and that the computation of a solution may not be possible at all depending on 
 end-user machine constraints.
 
-Min-terms that contain fewer than \code{n.cut} cases with membership scores above 
+Minterms that contain fewer than \code{n.cut} cases with membership scores above 
 0.5 are coded as remainders (\code{OUT = "?"}). If the number of such cases is at 
-least \code{n.cut}, min-terms with an inclusion score of at least \code{incl.cut1} 
-are coded positive (\code{OUT = "1"}), min-terms with an inclusion score below 
+least \code{n.cut}, minterms with an inclusion score of at least \code{incl.cut1} 
+are coded positive (\code{OUT = "1"}), minterms with an inclusion score below 
 \code{incl.cut1} but with at least \code{incl.cut0} are coded as a contradiction 
-(\code{OUT = "C"}), and min-terms with an inclusion score below \code{incl.cut0} 
+(\code{OUT = "C"}), and minterms with an inclusion score below \code{incl.cut0} 
 are coded negative (\code{OUT = "0"}). If \code{incl.cut0} is not explicitly 
 changed, it is set equal to \code{incl.cut1}.
 
 The logical argument \code{show.cases} controls whether case names are displayed
-next to their corresponding min-term (do not use this option with many cases 
+next to their corresponding minterm (do not use this option with many cases 
 and/or long case names).
 
-The \code{sort.by} argument orders all min-terms by their inclusion scores 
+The \code{sort.by} argument orders all minterms by their inclusion scores 
 (\emph{incl}) or the number of cases with membership above 0.5 they contain 
 (\emph{n}) or both, in either order.
 
@@ -97,7 +97,7 @@ value codings on inference-statistical tests. Currently, only an exact binomial
 test (\code{"binom"}) is available, which requires the data to contain only
 bivalent or multivalent crisp-set factors. The argument requires a vector of
 length two, comprising the test and a critical significance level. If the
-empirical inclusion score of a min-term is not significantly lower than 
+empirical inclusion score of a minterm is not significantly lower than 
 \code{incl.cut1}, it will be coded positive (\code{OUT = "1"}). If it is 
 significantly lower than \code{incl.cut1} yet still significantly higher than 
 \code{incl.cut0}, it will be coded as a contradiction (\code{OUT = "C"}). If it
@@ -108,12 +108,12 @@ is not significantly higher than \code{incl.cut0}, it will be coded negative
 \value{An object of class 'tt', which is a list with the following six main 
        components:\cr
   \item{tt}{The truth table.}
-  \item{indexes}{The min-term line numbers.}
+  \item{indexes}{The minterm line numbers.}
   \item{noflevels}{A vector with the number of levels of the exogenous factors.}
   \item{initial.data}{The initial data.}
   \item{recoded.data}{Recoded data (if crisp, same as \code{initial.data}; if 
                       fuzzy, dichotomized version of \code{initial.data}).}
-  \item{cases}{The cases with membership above 0.5 in a min-term.}
+  \item{cases}{The cases with membership above 0.5 in a minterm.}
 }
 
 \author{
@@ -160,7 +160,7 @@ truthTable(d.represent, outcome = "WNP")
 truthTable(d.represent, outcome = "WNP", complete = TRUE, 
   show.cases = TRUE, sort.by = c("incl", "n"))
 
-# code min-terms with a single case as remainders (note: use of 
+# code minterms with a single case as remainders (note: use of 
 # 'n.cut' should be well justified)
 KRO.tt <- truthTable(d.represent, outcome = "WNP", n.cut = 2, 
   show.cases = TRUE)
@@ -174,9 +174,9 @@ KRO.tt$excluded
 data(d.jobsecurity)
 head(d.jobsecurity)
 
-# code non-remainder min-terms with inclusion scores between 0.4 
+# code non-remainder minterms with inclusion scores between 0.4 
 # and 0.8 as contradictions (note: these are not 'contradictions' 
-# in the logical sense of the word but min-terms that can neither 
+# in the logical sense of the word but minterms that can neither 
 # be coded as sufficient nor as insufficient for the outcome)
 truthTable(d.jobsecurity, outcome = "JSR", incl.cut1 = 0.8, incl.cut0 = 0.4)
 
@@ -189,7 +189,7 @@ truthTable(d.jobsecurity, outcome = "JSR", neg.out = TRUE, incl.cut1 = 0.8,
 data(d.partybans)
 head(d.partybans)
 
-# code non-remainder min-terms with inclusion scores below 1 
+# code non-remainder minterms with inclusion scores below 1 
 # but above 0.4 as contradictions 
 HK.tt <- truthTable(d.partybans, outcome = "PB", 
   exo.facs = c("C","F","T","V"), incl.cut0 = 0.4)
@@ -198,7 +198,7 @@ HK.tt
 # list the number of levels for the exogenous factors  
 HK.tt$noflevels
 
-# which min-terms have more than 2 cases?
+# which minterms have more than 2 cases?
 HK.tt$tt[which(HK.tt$tt$n > 2), ]
 
 # code output function values in truth table based on 

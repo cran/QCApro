@@ -50,7 +50,7 @@ implicIndep <- function (expression, n.samples = 1, size.sample = 100, corr = "0
  
   if (any(sapply(conj.list, function (x) any(duplicated(toupper(x)))))) {
    
-      errmsg <- paste0("Check the expression. At least one disjunct contains
+      errmsg <- paste0("Check the expression. At least one disjunct contains a
                         contradiction or the same conjunct more than once.")
       cat("\n")
       stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)

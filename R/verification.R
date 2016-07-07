@@ -1,3 +1,56 @@
+# called by 'ambiguity'
+################################################################################
+
+verify.ambig <- function(data, outcome, neg.out, exo.facs, tuples, 
+                         incl.cut1, incl.cut0, row.dom, min.dis) {
+ 
+  if (all(outcome == "")) {
+  
+      errmsg <- paste0("No outcome/s is/are specified.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  }
+ 
+  if (!is.logical(neg.out) | length(neg.out) > 2 | any(duplicated(neg.out))) {
+  
+      errmsg <- paste0("The argument 'neg.out' must be a logical vector of length
+                        one or two with no duplicated values.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  }
+ 
+  if (is.null(tuples)) {
+  
+      errmsg <- paste0("At least one tuple has to be specified.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  }
+ 
+  else if (max(tuples) > length(exo.facs) | min(tuples) < 2) {
+  
+      errmsg <- paste0("The minimum tuple size is two and the maximum tuple size 
+                        cannot be larger than the number of exogenous factors.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  }
+ 
+  if (length(incl.cut1) != length(incl.cut0)) {
+  
+      errmsg <- paste0("The vectors of inclusion cut-offs must have the same length.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  }
+ 
+  if (length(row.dom) != length(min.dis)) {
+  
+      errmsg <- paste0("The vectors of the arguments 'row.dom' and 'min.dis' 
+                        must have the same length.")
+      cat("\n")
+      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+  } 
+} 
+
+
 # called by 'superSubset'
 ################################################################################
 
@@ -67,14 +120,14 @@ verify.data <- function(data, outcome = "", exo.facs = c("")) {
 # called by 'truthTable' and 'eQMC'
 ################################################################################
 
-verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE, 
-                      show.cases = FALSE, incl.cut1 = 1, incl.cut0 = 1, 
-                      inf.test = c(""), use.letters = FALSE) {
+verify.tt <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""), 
+                      complete = FALSE, show.cases = FALSE, incl.cut1 = 1, 
+                      incl.cut0 = 1, inf.test = c(""), use.letters = FALSE) {
   
   # 'outcome' 
   #-----------------------------------------------------------------------------
-  
   outcome.copy <- outcome
+  
   # if the outcome is not specified,...
   if (gsub("\\s", "", outcome, perl = TRUE) == "") {
   
@@ -125,17 +178,18 @@ verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE,
   if (all(gsub("\\s", "", exo.facs, perl = TRUE) == "")) {
   
       exo.facs <- colnames(data)[-which(colnames(data) == outcome)]
+      data <- data[, c(exo.facs, outcome)]
       
-      if (length(exo.facs) > 16) {
+      if (any(is.na(data))) {
        
-          wrnmsg <- paste0("You are about to include ", length(exo.facs), " 
-                            exogenous factors in the analysis. Minimization may
-                            not be possible.")
+          f.nas <- names(data)[apply(apply(data, 2, is.na), 2, any)]
+          errmsg <- paste0("Included factors must not contain missing values. The 
+                            following factors contain missing values: ", f.nas, ".")
           cat("\n")
-          warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
-                  immediate. = TRUE, call. = FALSE)
-      }
-  } 
+          stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
+      } 
+  }
+  
   
   # if there are at least two exogenous factors,...
   else if (length(exo.facs) > 1) {
@@ -157,7 +211,7 @@ verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE,
                             the data: ", f.notindata, ".")
           cat("\n")
           stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
-      } 
+      }
   }
  
   # if there is only one exogenous factor,...
@@ -169,16 +223,6 @@ verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE,
   }
  
   data <- data[, c(exo.facs, outcome)]
-  
-  # if there are more than 26 exogenous factors (plus one outcome), letters
-  # cannot be used
-  if (use.letters & ncol(data) > 27) {
-   
-      errmsg <- paste0("Letters cannot be used. There are more than 26 
-                       exogenous factors.")
-      cat("\n")
-      stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
-  }
  
   # missing data
   #-----------------------------------------------------------------------------
@@ -259,17 +303,49 @@ verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE,
       cat("\n")
       stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
   }
-
-  # if incl.cut1 is set below 0.5,... 
-  if (incl.cut1 < 0.5) {
+ 
+  #-----------------------------------------------------------------------------
+  # run tests for inf.test (see below)
+  verify.inf.test(inf.test = inf.test, data = data)
+  
+  #-----------------------------------------------------------------------------
+  # warning messages
+  if (!grepl("[{]", outcome) & all(strsplit(outcome, "")[[1]] %in% letters) & 
+      neg.out == FALSE) {
    
-      wrnmsg <- paste0("The minimum sufficiency inclusion score for an output 
-                        function value of '1' specified in the argument 
-                        'incl.cut1' should not be below 0.5. It is currently set 
-                        to ", incl.cut1, ".")
+      wrnmsg <- paste0("The outcome, '", outcome, "', has been transformed from 
+                        lower case to upper case. If you intended to analyse the 
+                        negation of the outcome, please use 'neg.out = TRUE'.")
+      cat("\n")
+      warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
+           immediate. = TRUE, call. = FALSE)
+  }
+  
+  if (all(gsub("\\s", "", exo.facs, perl = TRUE) == "")) {
+   
+      if (any(sapply(strsplit(exo.facs, ""), function (x) all(x %in% letters)))) {
+    
+          wrnmsg <- paste0("The label of at least one exogenous factor has been
+                            transformed from all lower-case letters to all 
+                            upper-case letters. For bivalent factors, this does 
+                            not imply that the factor has been negated.")
+          cat("\n")
+          warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
+                  immediate. = TRUE, call. = FALSE)
+      }
+  }
+  
+  else if (length(exo.facs) > 1 & any(sapply(strsplit(exo.facs, ""), 
+                                             function (x) all(x %in% letters)))) {
+   
+      wrnmsg <- paste0("The label of at least one exogenous factor has been
+                        transformed from all lower-case letters to all 
+                        upper-case letters. For bivalent factors, this does 
+                        not imply that the factor has been negated.")
       cat("\n")
       warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
               immediate. = TRUE, call. = FALSE)
+   
   }
   
   # if incl.cut0 is set above 0.5,... 
@@ -283,10 +359,18 @@ verify.tt <- function(data, outcome = "", exo.facs = c(""), complete = FALSE,
       warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
               immediate. = TRUE, call. = FALSE)
   }
- 
-  #-----------------------------------------------------------------------------
-  # run tests for inf.test (see below)
-  verify.inf.test(inf.test, data)
+  
+  # if incl.cut1 is set below 0.5,... 
+  if (incl.cut1 < 0.5) {
+   
+      wrnmsg <- paste0("The minimum sufficiency inclusion score for an output 
+                        function value of '1' specified in the argument 
+                        'incl.cut1' should not be below 0.5. It is currently set 
+                        to ", incl.cut1, ".")
+      cat("\n")
+      warning(paste(strwrap(wrnmsg, exdent = 7), collapse = "\n"), 
+              immediate. = TRUE, call. = FALSE)
+  }
 }
 
 # called by 'eQMC'
@@ -297,7 +381,7 @@ verify.qca <- function(minimize = c("")) {
   # check if the user specifies something to minimize
   if (all(minimize == c(""))) {
     
-      errmsg <- paste0("You have not specified any min-terms to be covered.
+      errmsg <- paste0("You have not specified any minterms to be covered.
                         Normally, the setting is minimize = c(\"1\").")
       cat("\n")
       stop(paste(strwrap(errmsg, exdent = 7), collapse = "\n"), call. = FALSE)
@@ -404,89 +488,104 @@ verify.dir.exp <- function (data, outcome, exo.facs, dir.exp = c()) {
 
 verify.mqca <- function(data, outcome = c(""), exo.facs = c("")) {
     
-    mvoutcome <- grepl("[{]", outcome)
-    outcome.value <- rep(-1, length(outcome))
+  mvoutcome <- grepl("[{]", outcome)
+  outcome.value <- rep(-1, length(outcome))
     
-    if (any(mvoutcome)) {
-        outcome.copy <- outcome
+  if (any(mvoutcome)) {
+  
+      outcome.copy <- outcome
         
-        outcome.copy <- strsplit(outcome.copy, split = "")
-        outcome.name <- outcome.value <- vector(mode="list", length = length(outcome))
+      outcome.copy <- strsplit(outcome.copy, split = "")
+      outcome.name <- outcome.value <- vector(mode="list", length = length(outcome))
         
-        for (i in seq(length(outcome.copy))) {
-            if (mvoutcome[i]) {
-                outcome.value[[i]] <- as.numeric(outcome.copy[[i]][which(outcome.copy[[i]] == "{") + 1])
-                outcome.name[[i]] <- paste(outcome.copy[[i]][seq(1, which(outcome.copy[[i]] == "{") - 1)], collapse="")
-            }
-            else {
-                outcome.value[[i]] <- -1
-                outcome.name[[i]] <- outcome[i]
-            }
-        }
+      for (i in seq(length(outcome.copy))) {
+      
+           if (mvoutcome[i]) {
+      
+               outcome.value[[i]] <- as.numeric(outcome.copy[[i]][which(outcome.copy[[i]] == "{") + 1])
+               outcome.name[[i]] <- paste(outcome.copy[[i]][seq(1, which(outcome.copy[[i]] == "{") - 1)], collapse = "")
+           }
+           
+           else {
+           
+               outcome.value[[i]] <- -1
+               outcome.name[[i]] <- outcome[i]
+           }
+      }
         
-        outcome <- unlist(outcome.name)
+      outcome <- unlist(outcome.name)
         
-        if (length(intersect(outcome, names(data))) < length(outcome)) {
-            outcome <- setdiff(outcome, names(data))
-            cat("\n")
-            errmessage <- paste("Outcome(s) not present in the data: \"", paste(outcome, collapse="\", \""), "\".\n\n", sep="")
-            stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
-        }
+      if (length(intersect(outcome, names(data))) < length(outcome)) {
+          
+          outcome <- setdiff(outcome, names(data))
+          cat("\n")
+          errmessage <- paste0("Outcome(s) not present in the data: \"", 
+                              paste(outcome, collapse = "\", \""), "\".\n\n")
+          stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
+      }
         
-        for (i in seq(length(outcome))) {
-            if (mvoutcome[i]) {
-                if (!any(unique(data[, outcome.name[[i]]]) == outcome.value[[i]])) {
-                    cat("\n")
-                    errmessage <- paste("The value {", outcome.value[[i]], "} does not exist in the outcome \"", outcome.name[[i]], "\".\n\n", sep="")
-                    stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
-                }
-            }
-        }
-        
-        outcome.value <- unlist(outcome.value)
-    }
-    else {
-        
-        if (length(intersect(outcome, names(data))) < length(outcome)) {
-            outcome <- setdiff(outcome, names(data))
-            cat("\n")
-            errmessage <- paste("Outcome(s) not present in the data: \"", paste(outcome, collapse="\", \""), "\".\n\n", sep="")
-            stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
-        }
-        
-        fuzzy.outcome <- apply(data[, outcome, drop = FALSE], 2, function(x) any(x %% 1 > 0))
-        
-        # Test if outcomes are multivalent, even if the user did not specify this
-        if (any(!fuzzy.outcome)) {
-            outcome.copy <- outcome[!fuzzy.outcome]
+      for (i in seq(length(outcome))) {
+           
+           if (mvoutcome[i]) {
+             
+               if (!any(unique(data[, outcome.name[[i]]]) == outcome.value[[i]])) {
             
-            for (i in outcome.copy) {
-                valents <- unique(data[, i])
-                if (!all(valents %in% c(0, 1))) {
-                    
-                    errmessage <- paste0("Please specify the level of the endogenous 
-                                          factor \"", i, "\" to used as the outcome .\n\n")
-                    cat("\n")
-                    stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
-                }
-            }
-        }
+                   cat("\n")
+                   errmessage <- paste0("The value {", outcome.value[[i]], "} does not exist in the outcome \"", outcome.name[[i]], "\".\n\n")
+                   stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
+               }
+           }
+      }
         
-    }
+      outcome.value <- unlist(outcome.value)
+  }
+  
+  else {
+        
+      if (length(intersect(outcome, names(data))) < length(outcome)) {
+        
+          outcome <- setdiff(outcome, names(data))
+          cat("\n")
+          errmessage <- paste("Outcome(s) not present in the data: \"", paste(outcome, collapse="\", \""), "\".\n\n", sep="")
+          stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
+      }
+        
+      fuzzy.outcome <- apply(data[, outcome, drop = FALSE], 2, function(x) any(x %% 1 > 0))
+        
+      # test if outcomes are multivalent, even if the user did not specify this
+      if (any(!fuzzy.outcome)) {
+            
+          outcome.copy <- outcome[!fuzzy.outcome]
+            
+          for (i in outcome.copy) {
+         
+               valents <- unique(data[, i])
+        
+               if (!all(valents %in% c(0, 1))) {
+                    
+                   errmessage <- paste0("Please specify the level of the endogenous 
+                                          factor \"", i, "\" to used as the outcome .\n\n")
+                   cat("\n")
+                   stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
+               }
+          }
+      }
+  }
     
-    if (all(exo.facs == c(""))) {
-        exo.facs <- colnames(data)
-    }
+  if (all(exo.facs == c(""))) {
+  
+      exo.facs <- colnames(data)
+  }
     
-    if (length(setdiff(outcome, exo.facs)) > 0) {
-        outcome <- setdiff(outcome, exo.facs)
-        cat("\n")
-        errmessage <- paste("Outcome(s) not present in the conditions' names: \"", paste(outcome, collapse="\", \""), "\".\n\n", sep="")
-        stop(paste(strwrap(errmessage, exdent = 7), collapse = "\n", sep=""))
-    }
+  if (length(setdiff(outcome, exo.facs)) > 0) {
+        
+      outcome <- setdiff(outcome, exo.facs)
+      cat("\n")
+      errmessage <- paste0("Outcome(s) not present in the conditions' names: \"", paste(outcome, collapse="\", \""), "\".\n\n")
+      stop(paste0(strwrap(errmessage, exdent = 7), collapse = "\n"))
+  }
     
-    invisible(return(list(mvoutcome = mvoutcome, outcome = outcome, outcome.value = outcome.value, exo.facs = exo.facs)))
-    
+  invisible(return(list(mvoutcome = mvoutcome, outcome = outcome, outcome.value = outcome.value, exo.facs = exo.facs)))
 }
 
 # called by 'truthTable', 'eQMC'
