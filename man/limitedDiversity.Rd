@@ -7,7 +7,7 @@
 \description{
 This evaluation function computes all solutions and unique models that result 
 when all \emph{n}-tuples of minterms are systematically eliminated from a 
-truth table. It has initially been programmed for \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem (2015)} to test 
+truth table. It has initially been programmed for \href{http://dx.doi.org/10.1177/0049124117701487}{Baumgartner and Thiem (2017)} to test 
 the correctness of QCA's three search strategies (conservative/complex, intermediate, 
 parsimonious).
 }
@@ -37,7 +37,7 @@ limitedDiversity(truth.tab, outcome = "", exo.facs = c(""), sol.type = "ps",
 \details{
 This function computes all solutions and unique models that result when all 
 n-tuples of observed minterms are systematically dropped from a truth table.
-It has been programmed for \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem (2015)} to test the correctness of QCA's three search strategies (conservative/complex, intermediate, parsimonious) in conjunction with the \code{\link{submodels}} function.
+It has been programmed for \href{http://dx.doi.org/10.1177/0049124117701487}{Baumgartner and Thiem (2017)} to test the correctness of QCA's three search strategies (conservative/complex, intermediate, parsimonious) in conjunction with the \code{\link{submodels}} function.
 
 The argument \code{truth.tab} specifies the truth table from which minterms are
 to be dropped. The truth table can either be in plain format or be a truth table 
@@ -76,10 +76,8 @@ Baumgartner, Michael. 2009. \dQuote{Inferring Causal Complexity.}
 \emph{Sociological Methods & Research} \strong{38} (1):71-101.
 DOI: \href{http://dx.doi.org/10.1177/0049124109339369}{10.1177/0049124109339369}.
 
-Baumgartner, Michael, and Alrik Thiem. 2015. \emph{Often Trusted but Never 
-(Properly) Tested: Evaluating Qualitative Comparative Analysis}. Paper presented 
-at the 12th Conference of the European Sociological Association, 25-28 August, 
-Czech Technical University, Prague (Czech Republic). \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Link}.
+Baumgartner, Michael, and Alrik Thiem. 2017. \dQuote{Often Trusted but Never 
+(Properly) Tested: Evaluating Qualitative Comparative Analysis.} \emph{Sociological Methods & Research}. Advance online publication. DOI: \href{http://dx.doi.org/10.1177/0049124117701487}{10.1177/0049124117701487}.
 }
 
 \seealso{\code{\link{eQMC}}, \code{\link{submodels}}, \code{\link{truthTable}}}
@@ -113,7 +111,7 @@ tt <- truthTable(d.represent, outcome = "WNP")
 limitedDiversity(tt)
 
 # proof that the conservative/complex solution type of QCA is incorrect, 
-# (see Baumgartner and Thiem (2015) for more details)
+# (see Baumgartner and Thiem (2017) for more details)
 #-----------------------------------------------------------------------
 
 # 1. build truth table on the basis of reference model aB + Bc + D

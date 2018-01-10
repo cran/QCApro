@@ -3,6 +3,27 @@
 
 \title{Package News}
 
+\section{Version 1.1-2}{
+
+  \subsection{CHANGED}{
+    \itemize{
+      \item{minor changes and updates to documentation}
+      \item{minor changes and updates to glossary of CCM terms}
+    }
+  }
+  
+  \subsection{FIXED}{
+    \itemize{
+      \item{minor bug in function 'submodels' caused error when testing whether 
+            an expression whose antecedent consisted of a single condition 
+            contained redundant elements (thanks to Michael Baumgartner)}
+      \item{function 'randomDGS' has been enhanced with three new arguments 
+            'prob', 'diversity' and 'delete.trivial' for finer control}
+    }
+  }
+}
+
+
 \section{Version 1.1-1}{
 
   \subsection{CHANGED}{
@@ -11,7 +32,6 @@
       \item{minor updates to glossary of CCM terms}
     }
   }
-
 }
 
 \section{Version 1.1-0}{

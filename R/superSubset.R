@@ -90,14 +90,14 @@ superSubset <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     
     
     if (memcare) {
-        CMatrix <- .Call("superSubsetMem", as.matrix(data[, exo.facs]), noflevels, mbase, as.numeric(fc), data[, outcome], relation == "necessity", package = "QCApro")
+        CMatrix <- .Call("superSubsetMem", as.matrix(data[, exo.facs]), noflevels, mbase, as.numeric(fc), data[, outcome], relation == "necessity", PACKAGE = "QCApro")
     }
     else {
         nk <- mintermMatrix(noflevels + 1L)
         colnames(nk) <- exo.facs
         nk <- nk[-1, ] # first row is always empty
         
-        CMatrix <- .Call("superSubset", as.matrix(data[, exo.facs]), nk, as.numeric(fc), data[, outcome], as.numeric(relation == "necessity"), package = "QCApro")
+        CMatrix <- .Call("superSubset", as.matrix(data[, exo.facs]), nk, as.numeric(fc), data[, outcome], as.numeric(relation == "necessity"), PACKAGE = "QCApro")
     }
     
     
@@ -112,7 +112,7 @@ superSubset <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     
     if (lexpressions > 0) {
         if (relation %in% c("sufficiency", "suf")) {
-            expressions <- .Call("removeRedundants", expressions, noflevels, mbase, package="QCApro")
+            expressions <- .Call("removeRedundants", expressions, noflevels, mbase, PACKAGE="QCApro")
         }
         
         result.matrix <- getRow(noflevels + 1L, expressions)
@@ -137,7 +137,7 @@ superSubset <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
         
         exprnec <- exprnec[CMatrix[4, ] >= incl.cut & CMatrix[3, ] >= cov.cut]
         
-        exprnec <- .Call("removeRedundants", exprnec, noflevels, mbase, package="QCApro")
+        exprnec <- .Call("removeRedundants", exprnec, noflevels, mbase, PACKAGE="QCApro")
         
         exprnec <- setdiff(exprnec, expressions)
         lexprnec <- length(exprnec)

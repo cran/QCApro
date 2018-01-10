@@ -6,7 +6,7 @@
 
 \description{
 This evaluation function computes the degree of ambiguity across variations of a
-reference research design. It has initially been programmed for \href{http://dx.doi.org/10.1177/0049124115610351}{Baumgartner and Thiem (2015)}.
+reference research design. It has initially been programmed for \href{http://dx.doi.org/10.1177/0049124115610351}{Baumgartner and Thiem (2017)}.
 }
 
 \usage{
@@ -79,7 +79,7 @@ Thiem, Alrik        \tab: development, documentation, programming, testing
 }}
 
 \references{
-Baumgartner, Michael, and Alrik Thiem. 2015. \dQuote{Model Ambiguities in Configurational Comparative Research.} \emph{Sociological Methods & Research}. Advance online publication. DOI: \href{http://dx.doi.org/10.1177/0049124115610351}{10.1177/0049124115610351}.
+Baumgartner, Michael, and Alrik Thiem. 2017. \dQuote{Model Ambiguities in Configurational Comparative Research.} \emph{Sociological Methods & Research} \strong{46} (4):954-87. DOI: \href{http://dx.doi.org/10.1177/0049124115610351}{10.1177/0049124115610351}.
 
 McCluskey, Edward J. 1956. \dQuote{Minimization of Boolean Functions.} 
 \emph{Bell Systems Technical Journal} \strong{35} (6):1417-44. DOI: \href{http://dx.doi.org/10.1002/j.1538-7305.1956.tb03835.x}{10.1002/j.1538-7305.1956.tb03835.x}.

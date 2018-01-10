@@ -323,7 +323,7 @@ eQMC <- function(data, outcome = c(""), neg.out = FALSE, exo.facs = c(""),
     if (incl.rem) {
         
             expressions <- sort(setdiff(findSupersets(noflevels + 1, expl.matrix), findSupersets(noflevels + 1, excl.matrix)))
-            expressions <- .Call("removeRedundants", expressions, noflevels, mbase, package="QCApro")
+            expressions <- .Call("removeRedundants", expressions, noflevels, mbase, PACKAGE="QCApro")
         
         expressions <- getRow(noflevels + 1, expressions)
         

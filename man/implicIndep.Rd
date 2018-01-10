@@ -4,7 +4,7 @@
 \title{Test for Implicational Independence between two Factors}
 
 \description{
-This evaluation function tests for the implicational independence between two factors. It has been programmed for \href{https://www.researchgate.net/publication/291345976_Modeling_Causal_Irrelevance_in_Evaluations_of_Configurational_Comparative_Methods}{Thiem and Baumgartner (2015)}.
+This evaluation function tests for the implicational independence between two factors. It has been programmed for \href{http://dx.doi.org/10.1177/0081175016654736}{Thiem and Baumgartner (2016)}.
 }
 
 \usage{
@@ -48,7 +48,7 @@ Thiem, Alrik        \tab: development, documentation, programming, testing
 }}
 
 \references{
-Thiem, Alrik, and Michael Baumgartner. 2015. \emph{Modelling Causal Irrelevance in Evaluations of Configurational Comparative Methods}. Geneva: Manuscript. \href{https://www.researchgate.net/publication/291345976_Modeling_Causal_Irrelevance_in_Evaluations_of_Configurational_Comparative_Methods}{Link}.
+Thiem, Alrik, and Baumgartner, Michael. 2016. \dQuote{Modeling Causal Irrelevance in Evaluations of Configurational Comparative Methods.} \emph{Sociological Methodology} 46 (1):345-57. DOI: \href{http://dx.doi.org/10.1177/0081175016654736}{10.1177/0081175016654736}.
 }
 
 \seealso{\code{\link{eQMC}}}

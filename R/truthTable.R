@@ -119,11 +119,11 @@ truthTable <- function(data, outcome = "", neg.out = FALSE, exo.facs = c(""),
     
     if (memcare) {
         mbase <- c(rev(cumprod(rev(noflevels))), 1)[-1]
-        inclpri <- .Call("truthTableMem", as.matrix(data[, exo.facs]), noflevels, mbase, as.numeric(fuzzy.cc), data[, outcome], package="QCApro")
+        inclpri <- .Call("truthTableMem", as.matrix(data[, exo.facs]), noflevels, mbase, as.numeric(fuzzy.cc), data[, outcome], PACKAGE="QCApro")
     }
     else {
         tt <- mintermMatrix(noflevels)
-        inclpri <- .Call("truthTable", as.matrix(data[, exo.facs]), tt, as.numeric(fuzzy.cc), data[, outcome], package="QCApro")
+        inclpri <- .Call("truthTable", as.matrix(data[, exo.facs]), tt, as.numeric(fuzzy.cc), data[, outcome], PACKAGE="QCApro")
     }
     
     colnames(inclpri[[1]]) <- seq_len(ncol(inclpri[[1]]))

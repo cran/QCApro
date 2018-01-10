@@ -140,8 +140,8 @@ generated. It accepts either \code{"ps"} (default, parsimonious solution),
 \code{"ps+"} (parsimonious solution including both positive minterms and 
 contradictions), \code{"cs"} (conservative solution) or \code{"cs+"} (conservative 
 solution including both positive minterms and contradictions). As only the 
-parsimonious solution generates methodologically correct solutions (\href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner 
-and Thiem 2015a}), \code{sol.type} should normally be left unchanged.
+parsimonious search strategy generates methodologically correct solutions (\href{http://dx.doi.org/10.1177/0049124117701487}{Baumgartner 
+and Thiem 2017a}), \code{sol.type} should not normally be changed to generate conservative or intermediate solutions.
 
 The logical argument \code{row.dom} controls whether the principle of row dominance
 is imposed as a constraint on the solution. An inessential prime implicant \eqn{P}
@@ -156,7 +156,7 @@ disjunctivity is imposed as a constraint on the solution (McCluskey 1965, 123-12
 If minimal disjunctivity is operative, models that contain more than the number
 of prime implicants of the model(s) with the fewest prime implicants will not be
 returned. \emph{For purposes of causal data analysis, both} \code{row.dom} 
-\emph{and} \code{min.dis} \emph{must be set to} \code{FALSE} (\href{http://dx.doi.org/10.1177/0049124115610351}{Baumgartner and Thiem 2015b}; \href{http://dx.doi.org/10.1177/0193841x14550863}{Thiem 2014b}).
+\emph{and} \code{min.dis} \emph{must be set to} \code{FALSE} (\href{http://dx.doi.org/10.1177/0049124115610351}{Baumgartner and Thiem 2017b}; \href{http://dx.doi.org/10.1177/0193841x14550863}{Thiem 2014b}).
 
 The argument \code{omit} can be used to omit minterms from the minimization 
 process \emph{ex ante}. It accepts a vector of row numbers from the truth table 
@@ -165,7 +165,7 @@ function (if the argument \code{data} is a truth table object) or as specified
 in the argument \code{exo.facs}.
 
 Neither the conservative nor the intermediate search strategy of QCA produce 
-correct solutions (\href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Baumgartner and Thiem 2015a}). The \code{dir.exp} argument is retained only for purposes of method evaluation in 
+correct solutions (\href{http://dx.doi.org/10.1177/0049124117701487}{Baumgartner and Thiem 2017a}). The \code{dir.exp} argument is retained only for purposes of method evaluation in 
 relation to intermediate solutions. It specifies directional expectations for 
 separating easy from difficult counterfactuals in simplifying assumptions. For 
 bivalent crisp and fuzzy-set factors, expectations should be specified as a vector 
@@ -244,14 +244,10 @@ Baumgartner, Michael. 2009. \dQuote{Inferring Causal Complexity.}
 \emph{Sociological Methods & Research} \strong{38} (1):71-101.
 DOI: \href{http://dx.doi.org/10.1177/0049124109339369}{10.1177/0049124109339369}.
 
-Baumgartner, Michael, and Alrik Thiem. 2015a. \emph{Often Trusted but Never 
-(Properly) Tested: Evaluating Qualitative Comparative Analysis}. Paper presented 
-at the 12th Conference of the European Sociological Association, 25-28 August, 
-Czech Technical University, Prague (Czech Republic). \href{https://www.researchgate.net/publication/280555425_Often_Trusted_But_Never_Properly_Tested_Evaluating_Qualitative_Comparative_Analysis}{Link}.
+Baumgartner, Michael, and Alrik Thiem. 2017a. \dQuote{Often Trusted but Never 
+(Properly) Tested: Evaluating Qualitative Comparative Analysis.} \emph{Sociological Methods & Research}. Advance online publication. DOI: \href{http://dx.doi.org/10.1177/0049124117701487}{10.1177/0049124117701487}.
 
-Baumgartner, Michael, and Alrik Thiem. 2015b. \dQuote{Model Ambiguities in Configurational Comparative Research.} \emph{Sociological Methods & Research}. Advance online publication. DOI: \href{http://dx.doi.org/10.1177/0049124115610351}{10.1177/0049124115610351}.
-
-Dusa, Adrian. 2007. \dQuote{User Manual for the QCA(GUI) Package in R.} \emph{Journal of Business Research} \strong{60} (5):576-86. DOI: \href{http://dx.doi.org/10.1016/j.jbusres.2007.01.002}{10.1016/j.jbusres.2007.01.002}.
+Baumgartner, Michael, and Alrik Thiem. 2017b. \dQuote{Model Ambiguities in Configurational Comparative Research.} \emph{Sociological Methods & Research} \strong{46} (4):954-87. DOI: \href{http://dx.doi.org/10.1177/0049124115610351}{10.1177/0049124115610351}.
 
 Dusa, Adrian, and Alrik Thiem. 2015. \dQuote{Enhancing the Minimization of Boolean 
 and Multivalue Output Functions with eQMC.} \emph{Journal of Mathematical Sociology} 
@@ -265,8 +261,6 @@ DOI: \href{http://dx.doi.org/10.1111/j.1475-6765.2010.01933.x}{10.1111/j.1475-67
 Hartmann, Christof, and Joerg Kemmerzell. 2010. \dQuote{Understanding Variations 
 in Party Bans in Africa.} \emph{Democratization} \strong{17} (4):642-65.
 DOI: \href{http://dx.doi.org/10.1080/13510347.2010.491189}{10.1080/13510347.2010.491189}.
-
-Huang, Ronggui. 2014. \emph{QCA3: Yet another Package for Qualitative Comparative Analysis}. R Package Version 0.0-7. URL: \href{http://cran.r-project.org/package=QCA3}{http://cran.r-project.org/package=QCA3}.
 
 McCluskey, Edward J. 1956. \dQuote{Minimization of Boolean Functions.} 
 \emph{Bell Systems Technical Journal} \strong{35} (6):1417-44. DOI: \href{http://dx.doi.org/10.1002/j.1538-7305.1956.tb03835.x}{10.1002/j.1538-7305.1956.tb03835.x}.
@@ -386,10 +380,7 @@ print(mmv.s$"E{3}", details = TRUE, show.cases = TRUE)
 mmv.s <- eQMC(d.mmv, outcome = "E{3}", neg.out = TRUE)
 mmv.s
 
-# causal chains with QCA (Thiem 2015); data from Baumgartner (2009);
-# note that CNA and QCA results are not always equal because CNA applies a
-# different concept of the truth table that does not take each minterm's
-# individual inclusion score into consideration
+# causal chains with QCA (Thiem 2015); data from Baumgartner (2009)
 #-----------------------------------------------------------------------------
 d.Bau <- data.frame(
   U = c(1,1,1,1,0,0,0,0), D = c(1,1,0,0,1,1,0,0),
@@ -448,43 +439,6 @@ identical(unlist(CS.LD.sol$solution), unlist(CS.sol$solution))
 # beyond what the data warrants; the lower the diversity index (ratio of non-remainder
 # minterms to all minterms), the stronger the assumptions QCA-CS makes
 
-\dontrun{
-# R packages QCAGUI 2.3 (Dusa 2007) and QCA3 (Huang 2014) 
-# produce incorrect solutions
-#--------------------------------------------------------
-dat <- as.data.frame(mintermMatrix(rep(2, 5)))
-dimnames(dat) <- list(as.character(1:2^5), LETTERS[1:5])
-
-# assume data-generating structure is A + B + D <=> E, and mask 
-# it by ambiguity
-dat <- dat[((dat$A == 1 | dat$B == 1 | dat$D == 1) == dat$E) & 
-           ((dat$C == 1 | dat$D == 1) == dat$E), ]
-
-# QCAGUI 2.3 returns incorrect solutions AC + BC + D <=> E 
-# (default settings; conservative solution) and C + D <=> E 
-# (non-default settings; parsimonious solution)
-
-install.packages("QCAGUI") # if not yet installed
-library(package = "QCAGUI")
-QCAGUI::eqmcc(dat, outcome = "E")
-QCAGUI::eqmcc(dat, outcome = "E", include = "?")
-
-# QCA3 returns the same incorrect solutions
-install.packages("QCA3") # if not yet installed
-library(package = "QCA3")
-
-QCA3::reduce(cs_truthTable(dat, outcome = "E", 
-             condition = c("A", "B", "C", "D")))
-QCA3::reduce(cs_truthTable(dat, outcome = "E", 
-             condition = c("A", "B", "C", "D")), remainders = "include")
-
-remove.packages(c("QCA", "QCA3", "QCAGUI"))
-# close and re-open R to cleanly unload all components of removed packages 
-# (otherwise conflicts with QCApro may occur)
-
-
-
-}
 }
 
 \keyword{functions}

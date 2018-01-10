@@ -1,4 +1,4 @@
-useDynLib(QCApro)
+useDynLib(QCApro, .registration = TRUE)
 export(
   .onAttach,
   ambiguity,

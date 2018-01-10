@@ -60,7 +60,7 @@ function(chart, row.dom = FALSE, min.dis = TRUE, ...) {
                 stop(paste(strwrap("The PI chart is too large to identify all models.\n\n", exdent = 7), collapse = "\n", sep=""))
             }
             
-            output <- .Call("allSol", k, chart*1, package="QCApro")
+            output <- .Call("allSol", k, chart*1, PACKAGE="QCApro")
             
             output[output == 0] <- NA
             
@@ -71,7 +71,7 @@ function(chart, row.dom = FALSE, min.dis = TRUE, ...) {
             combos <- combn(nrow(chart), k)
             
              # sol.matrix will be a subset of the chart matrix with all minimum solutions
-            output <- combos[, as.logical(.Call("solveChart", t(combos) - 1, chart*1, package="QCApro")[[1]]), drop=FALSE]
+            output <- combos[, as.logical(.Call("solveChart", t(combos) - 1, chart*1, PACKAGE="QCApro")[[1]]), drop=FALSE]
         }
     }
     else {

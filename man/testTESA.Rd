@@ -7,7 +7,7 @@ Testing Schneider and Wagemann's Theory-Guided/Enhanced Standard Analysis (T/ESA
 
 \description{
 This evaluation function can be used to test the implications of Schneider and Wagemann's 
-Theory-Guided/Enhanced Standard Analysis (T/ESA; \href{http://dx.doi.org/10.1177/1065912912468269}{Schneider and Wagemann 2013}), and in particular, the procedure's first two stages, with respect to the extent of remainders that would have to be declared insufficient for the outcome.
+Theory-Guided/Enhanced Standard Analysis (T/ESA; \href{http://dx.doi.org/10.1177/1065912912468269}{Schneider and Wagemann 2013}), and in particular, the procedure's first two stages, with respect to the extent of remainders that would have to be declared insufficient for the outcome. It has been programmed for \href{http://dx.doi.org/10.1093/pan/mpw024}{Thiem (2016)}.
 }
 
 \usage{
@@ -52,7 +52,7 @@ Schneider, Carsten Q., and Claudius Wagemann. 2013. \dQuote{Doing Justice to
 Logical Remainders in QCA: Moving Beyond the Standard Analysis.} \emph{Political 
 Research Quarterly} \strong{66} (1):211-20. DOI: \href{http://dx.doi.org/10.1177/1065912912468269}{10.1177/1065912912468269}.
 
-Thiem, Alrik. 2015. \emph{Standards of Good Practice and the Methodology of Necessary Conditions in Qualitative Comparative Analysis: A Critical View on Schneider and Wagemann's Theory-Guided/Enhanced Standard Analysis}. COMPASSS WP Series 2015-83. URL: \href{http://www.compasss.org/wpseries/Thiem2015.pdf}{http://www.compasss.org/wpseries/Thiem2015.pdf}.  
+Thiem, Alrik. 2016. \dQuote{Standards of Good Practice and the Methodology of Necessary Conditions in Qualitative Comparative Analysis.} \emph{Political Analysis} \strong{24} (4):478-84. DOI: \href{http://dx.doi.org/10.1093/pan/mpw024}{10.1093/pan/mpw024}.  
 }
 
 \seealso{\code{\link{eQMC}}, \code{\link{truthTable}}, \code{\link{superSubset}}}
